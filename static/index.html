@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FOOD DASH PRO | Premium Delivery</title>
+    <title>FOOD DASH | Сочный Фастфуд</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff4757;
             --bg: #0f172a;
             --card: rgba(30, 41, 59, 0.7);
+            --accent: #ffa502;
         }
 
         body {
@@ -22,10 +23,10 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Чтобы не было боковой прокрутки на телефонах */
+            overflow-x: hidden;
         }
 
-        /* Адаптивная шапка */
+        /* Шапка */
         .header {
             padding: 15px 20px;
             background: rgba(15, 23, 42, 0.9);
@@ -40,7 +41,7 @@
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             background: linear-gradient(45deg, var(--primary), #ff6b81);
             -webkit-background-clip: text;
@@ -52,9 +53,11 @@
             padding: 5px 15px;
             border-radius: 50px;
             border: 1px solid var(--primary);
+            font-weight: bold;
             font-size: 14px;
         }
 
+        /* Контент */
         .container {
             width: 100%;
             max-width: 1000px;
@@ -64,20 +67,15 @@
             flex: 1;
         }
 
-        .welcome-text h1 { 
-            font-size: 28px; 
-            margin-bottom: 10px; 
-            text-align: center;
-        }
-
-        .welcome-text p { 
-            color: #94a3b8; 
-            font-size: 16px; 
+        .welcome-text {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        /* Сетка, которая сама подстраивается под экран */
+        .welcome-text h1 { font-size: 28px; margin-bottom: 5px; }
+        .welcome-text p { color: #94a3b8; font-size: 16px; }
+
+        /* Сетка товаров */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -85,44 +83,62 @@
             margin-bottom: 40px;
         }
 
-        /* На мобилках делаем карточки чуть компактнее */
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr; /* Один столбец на узких экранах */
-            }
-            .welcome-text h1 { font-size: 24px; }
-        }
-
         .card {
             background: var(--card);
             backdrop-filter: blur(5px);
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 24px;
+            padding: 20px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
             transition: 0.3s;
         }
 
-        .card-icon { font-size: 50px; margin-bottom: 15px; display: block; }
-        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
-        .card-price { color: #ffa502; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+        .card:hover { transform: translateY(-5px); border-color: var(--primary); }
+
+        .food-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 15px;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: var(--primary);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .card-title { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+        .card-desc { font-size: 14px; color: #94a3b8; margin-bottom: 15px; min-height: 40px; }
+        .card-price { color: var(--accent); font-size: 20px; font-weight: bold; margin-bottom: 15px; }
 
         .btn-buy {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 15px; /* Большая кнопка — удобно нажимать пальцем */
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 15px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-            -webkit-tap-highlight-color: transparent; /* Убираем синюю вспышку при нажатии на iOS */
+            transition: 0.2s;
         }
 
+        .btn-buy:active { transform: scale(0.95); }
+
+        /* История заказов */
         .orders-section {
             background: var(--card);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 20px;
             margin-top: 20px;
         }
@@ -132,133 +148,60 @@
             justify-content: space-between;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 14px;
         }
 
         /* Футер */
         .footer-brand {
             text-align: center;
-            padding: 30px;
-            background: rgba(0,0,0,0.3);
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.2);
         }
 
         .svinota-text {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 900;
-            letter-spacing: 5px;
-            color: rgba(255,255,255,0.2);
+            letter-spacing: 8px;
+            color: rgba(255,255,255,0.1);
             text-transform: uppercase;
         }
 
+        /* Уведомление */
         #notification {
             position: fixed;
-            top: 20px; /* На мобилках уведомление лучше сверху */
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 12px 20px;
-            background: var(--primary);
-            border-radius: 30px;
+            padding: 12px 25px;
+            background: #2ed573;
+            color: black;
+            font-weight: bold;
+            border-radius: 50px;
             display: none;
             z-index: 2000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            white-space: nowrap;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+            .welcome-text h1 { font-size: 24px; }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="logo">FOOD DASH</div>
+        <div class="logo">FOOD DASH PRO</div>
         <div class="balance-card"><span id="balance">5000</span> ₽</div>
     </div>
 
     <div class="container">
         <div class="welcome-text">
             <h1>Вы проголодались, Кирилл?</h1>
-            <p>Премиальная доставка еды</p>
+            <p>Огромный и сочный фастфуд специально для тебя</p>
         </div>
 
         <div class="grid">
             <div class="card">
-                <span class="card-icon">🍕</span>
-                <div class="card-title">Пицца</div>
-                <div class="card-price">599 ₽</div>
-                <button class="btn-buy" onclick="buy('Пицца 🍕', 599)">Заказать</button>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🍔</span>
-                <div class="card-title">Бургер</div>
-                <div class="card-price">350 ₽</div>
-                <button class="btn-buy" onclick="buy('Бургер 🍔', 350)">Заказать</button>
-            </div>
-
-            <div class="card">
-                <span class="card-icon">🍣</span>
-                <div class="card-title">Суши</div>
-                <div class="card-price">1200 ₽</div>
-                <button class="btn-buy" onclick="buy('Суши 🍣', 1200)">Заказать</button>
-            </div>
-        </div>
-
-        <div class="orders-section">
-            <h3>🕒 Заказы</h3>
-            <div id="list">
-                <p style="color: #64748b; font-size: 14px;">Тут будет история...</p>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer-brand">
-        <div class="svinota-text">KIRILL SVINOTA</div>
-    </footer>
-
-    <div id="notification">Успешно заказано! 🚀</div>
-
-    <script>
-        let balance = 5000;
-
-        async function buy(item, price) {
-            if (balance < price) {
-                alert("Мало денег!");
-                return;
-            }
-
-            const response = await fetch('/orders', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({item: item})
-            });
-
-            if (response.ok) {
-                balance -= price;
-                document.getElementById('balance').innerText = balance;
-                const el = document.getElementById('notification');
-                el.style.display = 'block';
-                setTimeout(() => { el.style.display = 'none'; }, 2500);
-                loadOrders();
-            }
-        }
-
-        async function loadOrders() {
-            const response = await fetch('/orders');
-            const orders = await response.json();
-            const list = document.getElementById('list');
-            
-            if (orders.length > 0) {
-                list.innerHTML = orders.reverse().map(o => `
-                    <div class="order-item">
-                        <div>
-                            <strong>${o.item}</strong><br>
-                            <small style="color: #64748b">${new Date(o.created_at).toLocaleTimeString()}</small>
-                        </div>
-                        <div style="color: #2ed573">● OK</div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        loadOrders();
-    </script>
-</body>
-</html>
+                <div class="card-badge">HOT 🔥</div>
+                <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=500&q=80" class="food-img">
+                <div class="card-title">Ост
