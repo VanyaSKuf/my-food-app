@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KFC STYLE | KIRILL EDITION</title>
+    <title>KFC STYLE | MEGA MENU</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,41 +23,18 @@
             flex-direction: column;
         }
 
-        /* Полный экран и жирный заголовок */
-        .hero-banner {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--dark)), 
-                        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 40vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 5px solid var(--kfc-red);
-        }
-
-        .hero-banner h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 50px;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 4px 4px 0px var(--kfc-red);
-        }
-
         .header-top {
             position: fixed;
             top: 0;
             width: 100%;
             padding: 15px 20px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.9);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             box-sizing: border-box;
+            border-bottom: 2px solid var(--kfc-red);
         }
 
         .balance-badge {
@@ -68,58 +45,73 @@
             font-family: 'Oswald', sans-serif;
         }
 
-        /* Сетка на весь экран */
+        .hero-banner {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--dark)), 
+                        url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 30vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(30px, 8vw, 50px);
+            margin: 0;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px var(--kfc-red);
+        }
+
         .menu-container {
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             box-sizing: border-box;
             flex: 1;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 15px;
         }
 
-        @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; }
-            .hero-banner h1 { font-size: 35px; }
-        }
-
-        /* Огромные сочные карточки */
         .food-card {
             background: #111;
-            border-radius: 0px; /* Острые углы как в KFC */
+            border-radius: 0px;
             overflow: hidden;
-            border-left: 8px solid var(--kfc-red);
+            border-left: 6px solid var(--kfc-red);
             transition: 0.3s;
             position: relative;
         }
 
         .food-img {
             width: 100%;
-            height: 300px; /* Очень большие картинки */
+            height: 280px;
             object-fit: cover;
             filter: contrast(1.1) brightness(0.9);
         }
 
         .food-info {
-            padding: 20px;
+            padding: 15px;
         }
 
         .food-title {
             font-family: 'Oswald', sans-serif;
-            font-size: 28px;
+            font-size: 24px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .food-price {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--kfc-red);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .buy-btn {
@@ -127,34 +119,33 @@
             color: white;
             border: none;
             width: 100%;
-            padding: 20px;
+            padding: 18px;
             font-family: 'Oswald', sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             text-transform: uppercase;
         }
 
-        .buy-btn:hover { background: #b30022; }
+        .buy-btn:active { transform: scale(0.98); }
 
-        /* История заказов */
         .orders-box {
             background: #000;
             padding: 20px;
             border: 2px dashed var(--kfc-red);
-            margin: 20px 0;
+            margin: 20px 10px;
         }
 
-        /* ТВОЯ НАДПИСЬ */
         .footer-svinota {
             background: var(--kfc-red);
-            color: black;
+            color: white;
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             font-family: 'Oswald', sans-serif;
-            font-size: 40px;
+            font-size: clamp(24px, 10vw, 55px);
             font-weight: 900;
-            letter-spacing: 15px;
+            letter-spacing: 12px;
             margin-top: auto;
+            text-shadow: 2px 2px 0px #000;
         }
 
         #notify {
@@ -166,50 +157,95 @@
             color: black;
             padding: 15px 40px;
             font-weight: bold;
-            text-transform: uppercase;
             display: none;
             z-index: 2000;
+            box-shadow: 0 0 25px var(--kfc-red);
         }
     </style>
 </head>
 <body>
 
     <div class="header-top">
-        <div style="font-family: 'Oswald'; font-size: 24px;">FOOD DASH PRO</div>
-        <div class="balance-badge">КОШЕЛЕК: <span id="bal">5000</span> ₽</div>
+        <div style="font-family: 'Oswald'; font-size: 20px;">FOOD DASH PRO</div>
+        <div class="balance-badge">БАЛАНС: <span id="bal">5000</span> ₽</div>
     </div>
 
     <div class="hero-banner">
         <h1>Вы проголодались, Кирилл?</h1>
-        <p style="text-transform: uppercase; letter-spacing: 3px;">Только самое мощное мясо</p>
+        <p style="text-transform: uppercase; letter-spacing: 2px;">ВЫБИРАЙ ЛУЧШЕЕ</p>
     </div>
 
     <div class="menu-container">
         <div class="grid">
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=80" class="food-img">
                 <div class="food-info">
                     <div class="food-title">МЕГА ШЕФБУРГЕР</div>
                     <div class="food-price">450 ₽</div>
-                    <button class="buy-btn" onclick="order('МЕГА ШЕФБУРГЕР 🍔', 450)">ВЗЯТЬ ЭТО</button>
+                    <button class="buy-btn" onclick="order('ШЕФБУРГЕР 🍔', 450)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=800&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600&q=80" class="food-img">
                 <div class="food-info">
                     <div class="food-title">БАСКЕТ ДУЭТ</div>
                     <div class="food-price">999 ₽</div>
-                    <button class="buy-btn" onclick="order('БАСКЕТ ДУЭТ 🍗', 999)">ВЗЯТЬ ЭТО</button>
+                    <button class="buy-btn" onclick="order('БАСКЕТ 🍗', 999)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=800&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">ОСТРЫЕ БАЙТСЫ</div>
-                    <div class="food-price">299 ₽</div>
-                    <button class="buy-btn" onclick="order('БАЙТСЫ 🔥', 299)">ВЗЯТЬ ЭТО</button>
+                    <div class="food-title">ДАБЛ ЧИЗБУРГЕР</div>
+                    <div class="food-price">280 ₽</div>
+                    <button class="buy-btn" onclick="order('ЧИЗБУРГЕР 🧀', 280)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">КАРТОФЕЛЬ ФРИ MAXI</div>
+                    <div class="food-price">199 ₽</div>
+                    <button class="buy-btn" onclick="order('ФРИ 🍟', 199)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1608039829572-7852bf5c7c63?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ОСТРЫЕ КРЫЛЬЯ (8 шт)</div>
+                    <div class="food-price">399 ₽</div>
+                    <button class="buy-btn" onclick="order('КРЫЛЬЯ 🔥', 399)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1639024471283-035188835118?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ЛУКОВЫЕ КОЛЬЦА</div>
+                    <div class="food-price">150 ₽</div>
+                    <button class="buy-btn" onclick="order('КОЛЬЦА 🧅', 150)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ЛЕДЯНАЯ КОЛА (0.5)</div>
+                    <div class="food-price">150 ₽</div>
+                    <button class="buy-btn" onclick="order('КОЛА 🥤', 150)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ШЕЙК ВАНИЛЬНЫЙ</div>
+                    <div class="food-price">220 ₽</div>
+                    <button class="buy-btn" onclick="order('ШЕЙК 🍦', 220)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
         </div>
@@ -224,7 +260,7 @@
         KIRILL SVINOTA
     </footer>
 
-    <div id="notify">ЗАКАЗ ПОДТВЕРЖДЕН! 🚀</div>
+    <div id="notify">ГОТОВИМ ТВОЙ ЗАКАЗ! 🚀</div>
 
     <script>
         let money = 5000;
@@ -257,11 +293,10 @@
             const l = document.getElementById('orders-list');
             l.innerHTML = data.reverse().map(o => `
                 <div style="padding: 10px; border-bottom: 1px solid #333;">
-                    <b>${o.item}</b> — <span style="color: #2ed573">ГОТОВИТСЯ</span>
+                    <b>${o.item}</b> — <span style="color: #2ed573">В ПУТИ 🛵</span>
                 </div>
             `).join('');
         }
-
         updateList();
     </script>
 </body>
