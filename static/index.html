@@ -1,69 +1,669 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="ru">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Food App</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>KFC STYLE | KIRILL MEGA MENU</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
     <style>
-        /* CSS keyframe animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        :root {
+
+            --kfc-red: #e4002b;
+
+            --dark: #000000;
+
+            --white: #ffffff;
+
+            --gray: #222;
+
         }
-        
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); }
-            100% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
-        }
-        
-        /* Applying animation to elements */
+
+
+
         body {
-            animation: fadeIn 1s ease-in;
-            transition: all 0.5s ease;
+
+            font-family: 'Poppins', sans-serif;
+
+            background: var(--dark);
+
+            color: var(--white);
+
+            margin: 0;
+
+            padding: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
         }
-        
-        .menu-item {
-            animation: slideIn 0.5s forwards;
-            transition: transform 0.3s;
+
+
+
+        .header-top {
+
+            position: fixed;
+
+            top: 0;
+
+            width: 100%;
+
+            padding: 15px 20px;
+
+            background: rgba(0,0,0,0.9);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            z-index: 1000;
+
+            box-sizing: border-box;
+
+            border-bottom: 2px solid var(--kfc-red);
+
         }
-        
-        .menu-item:hover {
-            transform: scale(1.05);
-            animation: pulse 0.5s;
+
+
+
+        .balance-badge {
+
+            background: var(--kfc-red);
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            font-weight: 800;
+
+            font-family: 'Oswald', sans-serif;
+
         }
-        
-        .highlight {
-            animation: glow 1s infinite alternate;
+
+
+
+        .hero-banner {
+
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--dark)), 
+
+                        url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&q=80');
+
+            background-size: cover;
+
+            background-position: center;
+
+            height: 25vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            margin-top: 60px;
+
         }
+
+
+
+        .hero-banner h1 {
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: clamp(24px, 7vw, 45px);
+
+            margin: 0;
+
+            text-transform: uppercase;
+
+            text-shadow: 3px 3px 0px var(--kfc-red);
+
+        }
+
+
+
+        /* Кнопки вкладок */
+
+        .tabs-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 20px;
+
+            background: var(--dark);
+
+        }
+
+
+
+        .tab-btn {
+
+            background: var(--gray);
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 25px;
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+            transition: 0.3s;
+
+            flex: 1;
+
+            max-width: 200px;
+
+        }
+
+
+
+        .tab-btn.active {
+
+            background: var(--kfc-red);
+
+        }
+
+
+
+        .menu-page {
+
+            display: none;
+
+            width: 100%;
+
+            padding: 10px;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        .menu-page.active {
+
+            display: block;
+
+        }
+
+
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+            gap: 15px;
+
+        }
+
+
+
+        .food-card {
+
+            background: #111;
+
+            border-left: 6px solid var(--kfc-red);
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        .food-img {
+
+            width: 100%;
+
+            height: 250px;
+
+            object-fit: cover;
+
+            filter: contrast(1.1) brightness(0.9);
+
+        }
+
+
+
+        .food-info { padding: 15px; }
+
+
+
+        .food-title {
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: 22px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .food-price {
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            color: var(--kfc-red);
+
+            margin-bottom: 15px;
+
+        }
+
+
+
+        .buy-btn {
+
+            background: var(--kfc-red);
+
+            color: white;
+
+            border: none;
+
+            width: 100%;
+
+            padding: 15px;
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .orders-box {
+
+            background: #000;
+
+            padding: 20px;
+
+            border: 2px dashed var(--kfc-red);
+
+            margin: 20px 10px;
+
+        }
+
+
+
+        .footer-svinota {
+
+            background: var(--kfc-red);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 20px;
+
+            font-family: 'Oswald', sans-serif;
+
+            font-size: clamp(20px, 8vw, 40px);
+
+            font-weight: 900;
+
+            letter-spacing: 8px;
+
+            margin-top: auto;
+
+        }
+
+
+
+        #notify {
+
+            position: fixed;
+
+            bottom: 30px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            background: white;
+
+            color: black;
+
+            padding: 15px 40px;
+
+            font-weight: bold;
+
+            display: none;
+
+            z-index: 2000;
+
+            box-shadow: 0 0 25px var(--kfc-red);
+
+        }
+
     </style>
+
 </head>
+
 <body>
-    <h1 class="highlight">Welcome to My Food App!</h1>
-    <div class="menu">
-        <div class="menu-item">
-            <h2>Ice Cream</h2>
-            <img src="https://images.unsplash.com/photo-1470521598063-ccdb3e54d157" alt="Ice Cream">
-        </div>
-        <div class="menu-item">
-            <h2>Beer</h2>
-            <img src="https://images.unsplash.com/photo-1608046813714-7d3e8af3c6e0" alt="Beer">
-        </div>
-        <div class="menu-item">
-            <h2>Wine</h2>
-            <img src="https://images.unsplash.com/photo-1510812431401-41d2cab2707d" alt="Wine">
-        </div>
+
+
+
+    <div class="header-top">
+
+        <div style="font-family: 'Oswald'; font-size: 18px;">FOOD DASH PRO</div>
+
+        <div class="balance-badge">БАЛАНС: <span id="bal">100000</span> $</div>
+
     </div>
+
+
+
+    <div class="hero-banner">
+
+        <h1>Меню для Кирилла</h1>
+
+    </div>
+
+
+
+    <div class="tabs-container">
+
+        <button class="tab-btn active" onclick="openTab('food-tab', this)">ЕДА</button>
+
+        <button class="tab-btn" onclick="openTab('drinks-tab', this)">АЛКОГОЛЬНЫЕ НАПИТКИ</button>
+
+    </div>
+
+
+
+    <div class="menu-container">
+
+        <div id="food-tab" class="menu-page active">
+
+            <div class="grid">
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">ПИЦЦА ПЕППЕРОНИ 🍕</div>
+
+                        <div class="food-price">650 ₽</div>
+
+                        <button class="buy-btn" onclick="order('ПИЦЦА 🍕', 650)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">МЕГА ШЕФБУРГЕР 🍔</div>
+
+                        <div class="food-price">450 ₽</div>
+
+                        <button class="buy-btn" onclick="order('ШЕФБУРГЕР 🍔', 450)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1541214113241-21578d2d9b62?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">ФРАНЦУЗСКИЙ ХОТ-ДОГ 🌭</div>
+
+                        <div class="food-price">190 ₽</div>
+
+                        <button class="buy-btn" onclick="order('ХОТ-ДОГ 🌭', 190)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">КАРТОФЕЛЬ ФРИ 🍟</div>
+
+                        <div class="food-price">199 ₽</div>
+
+                        <button class="buy-btn" onclick="order('ФРИ 🍟', 199)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">ОСТРЫЕ КРЫЛЬЯ 🍗</div>
+
+                        <div class="food-price">399 ₽</div>
+
+                        <button class="buy-btn" onclick="order('КРЫЛЬЯ 🔥', 399)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=600&q=80" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">МЯГКОЕ МОРОЖЕНОЕ 🍦</div>
+
+                        <div class="food-price">120 ₽</div>
+
+                        <button class="buy-btn" onclick="order('МОРОЖЕНОЕ 🍦', 120)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="drinks-tab" class="menu-page">
+
+            <div class="grid">
+
+                
+
+                <div class="food-card">
+
+                    <img src="https://images.pexels.com/photos/3650616/pexels-photo-3650616.jpeg" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">ПИВАСИК 🍺 </div>
+
+                        <div class="food-price">344 ₽</div>
+
+                        <button class="buy-btn" onclick="order('ПИВАСИК 🍺', 344)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="food-card">
+
+                    <img src="https://images.pexels.com/photos/34491485/pexels-photo-34491485.jpeg" class="food-img">
+
+                    <div class="food-info">
+
+                        <div class="food-title">КРАСНОЕ ВИНО ⚡</div>
+
+                        <div class="food-price">180 ₽</div>
+
+                        <button class="buy-btn" onclick="order('КРАСНОЕ ВИНО ⚡', 180)">ВЗЯТЬ ЭТО</button>
+
+                    </div>
+
+                </div>
+
+
+
+                </div>
+
+        </div>
+
+
+
+        <div class="orders-box">
+
+            <h2 style="font-family: 'Oswald';">ВАШИ ЧЕКИ:</h2>
+
+            <div id="orders-list"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <footer class="footer-svinota">KIRILL SVINOTA</footer>
+
+
+
+    <div id="notify">ЗАКАЗ ПРИНЯТ! 🚀</div>
+
+
+
+    <script>
+
+        let money = 5000;
+
+
+
+        // Функция переключения вкладок
+
+        function openTab(tabId, btn) {
+
+            const pages = document.getElementsByClassName('menu-page');
+
+            const btns = document.getElementsByClassName('tab-btn');
+
+
+
+            for (let page of pages) page.classList.remove('active');
+
+            for (let b of btns) b.classList.remove('active');
+
+
+
+            document.getElementById(tabId).classList.add('active');
+
+            btn.classList.add('active');
+
+        }
+
+
+
+        async function order(name, cost) {
+
+            if (money < cost) {
+
+                alert("ДЕНЕГ НЕТ!");
+
+                return;
+
+            }
+
+            money -= cost;
+
+            document.getElementById('bal').innerText = money;
+
+            const n = document.getElementById('notify');
+
+            n.style.display = 'block';
+
+            setTimeout(() => n.style.display = 'none', 2000);
+
+            
+
+            const l = document.getElementById('orders-list');
+
+            const item = document.createElement('div');
+
+            item.style.padding = "10px";
+
+            item.style.borderBottom = "1px solid #333";
+
+            item.innerHTML = `<b>${name}</b> — <span style="color: #2ed573">В ПУТИ 🛵</span>`;
+
+            l.prepend(item);
+
+        }
+
+    </script>
+
 </body>
+
 </html>
