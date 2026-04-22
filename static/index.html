@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KFC STYLE | MEGA MENU</title>
+    <title>KFC STYLE | KIRILL MEGA MENU</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -94,7 +94,7 @@
             height: 280px;
             object-fit: cover;
             filter: contrast(1.1) brightness(0.9);
-            background: #222; /* Серый фон, пока грузится */
+            background: #222;
         }
 
         .food-info {
@@ -126,6 +126,8 @@
             cursor: pointer;
             text-transform: uppercase;
         }
+
+        .buy-btn:active { transform: scale(0.98); }
 
         .orders-box {
             background: #000;
@@ -171,51 +173,60 @@
 
     <div class="hero-banner">
         <h1>Вы проголодались, Кирилл?</h1>
-        <p style="text-transform: uppercase; letter-spacing: 2px;">ВЫБИРАЙ ЛУЧШЕЕ</p>
+        <p style="text-transform: uppercase; letter-spacing: 2px;">ПОЛНЫЙ СПИСОК ЕДЫ</p>
     </div>
 
     <div class="menu-container">
         <div class="grid">
             <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ПИЦЦА ПЕППЕРОНИ 🍕</div>
+                    <div class="food-price">650 ₽</div>
+                    <button class="buy-btn" onclick="order('ПИЦЦА 🍕', 650)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">МЕГА ШЕФБУРГЕР</div>
+                    <div class="food-title">МЕГА ШЕФБУРГЕР 🍔</div>
                     <div class="food-price">450 ₽</div>
                     <button class="buy-btn" onclick="order('ШЕФБУРГЕР 🍔', 450)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1541214113241-21578d2d9b62?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">БАСКЕТ ДУЭТ</div>
-                    <div class="food-price">999 ₽</div>
-                    <button class="buy-btn" onclick="order('БАСКЕТ 🍗', 999)">ВЗЯТЬ ЭТО</button>
-                </div>
-            </div>
-
-            <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" class="food-img">
-                <div class="food-info">
-                    <div class="food-title">ДАБЛ ЧИЗБУРГЕР</div>
-                    <div class="food-price">280 ₽</div>
-                    <button class="buy-btn" onclick="order('ЧИЗБУРГЕР 🧀', 280)">ВЗЯТЬ ЭТО</button>
+                    <div class="food-title">ФРАНЦУЗСКИЙ ХОТ-ДОГ 🌭</div>
+                    <div class="food-price">190 ₽</div>
+                    <button class="buy-btn" onclick="order('ХОТ-ДОГ 🌭', 190)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">КАРТОФЕЛЬ ФРИ MAXI</div>
+                    <div class="food-title">КАРТОФЕЛЬ ФРИ 🍟</div>
                     <div class="food-price">199 ₽</div>
                     <button class="buy-btn" onclick="order('ФРИ 🍟', 199)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">МЕКСИКАНСКИЙ ТАКО 🌮</div>
+                    <div class="food-price">320 ₽</div>
+                    <button class="buy-btn" onclick="order('ТАКО 🌮', 320)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">ОСТРЫЕ КРЫЛЬЯ (8 шт)</div>
+                    <div class="food-title">ОСТРЫЕ КРЫЛЬЯ 🍗</div>
                     <div class="food-price">399 ₽</div>
                     <button class="buy-btn" onclick="order('КРЫЛЬЯ 🔥', 399)">ВЗЯТЬ ЭТО</button>
                 </div>
@@ -224,27 +235,36 @@
             <div class="food-card">
                 <img src="https://images.unsplash.com/photo-1528951111667-28f0907e594d?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">ЛУКОВЫЕ КОЛЬЦА</div>
+                    <div class="food-title">ЛУКОВЫЕ КОЛЬЦА 🧅</div>
                     <div class="food-price">150 ₽</div>
                     <button class="buy-btn" onclick="order('КОЛЬЦА 🧅', 150)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1501443762994-82bd5dabb892?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">ЛЕДЯНАЯ КОЛА (0.5)</div>
-                    <div class="food-price">150 ₽</div>
-                    <button class="buy-btn" onclick="order('КОЛА 🥤', 150)">ВЗЯТЬ ЭТО</button>
+                    <div class="food-title">МЯГКОЕ МОРОЖЕНОЕ 🍦</div>
+                    <div class="food-price">120 ₽</div>
+                    <button class="buy-btn" onclick="order('МОРОЖЕНОЕ 🍦', 120)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
 
             <div class="food-card">
-                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80" class="food-img">
+                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=600&q=80" class="food-img">
                 <div class="food-info">
-                    <div class="food-title">ШЕЙК ВАНИЛЬНЫЙ</div>
-                    <div class="food-price">220 ₽</div>
-                    <button class="buy-btn" onclick="order('ШЕЙК 🍦', 220)">ВЗЯТЬ ЭТО</button>
+                    <div class="food-title">ГЛАЗИРОВАННЫЕ ПОНЧИКИ 🍩</div>
+                    <div class="food-price">250 ₽</div>
+                    <button class="buy-btn" onclick="order('ПОНЧИКИ 🍩', 250)">ВЗЯТЬ ЭТО</button>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80" class="food-img">
+                <div class="food-info">
+                    <div class="food-title">ЛЕДЯНАЯ КОЛА 🥤</div>
+                    <div class="food-price">150 ₽</div>
+                    <button class="buy-btn" onclick="order('КОЛА 🥤', 150)">ВЗЯТЬ ЭТО</button>
                 </div>
             </div>
         </div>
@@ -259,7 +279,7 @@
         KIRILL SVINOTA
     </footer>
 
-    <div id="notify">ГОТОВИМ ТВОЙ ЗАКАЗ! 🚀</div>
+    <div id="notify">ЗАКАЗ ПРИНЯТ! 🚀</div>
 
     <script>
         let money = 5000;
