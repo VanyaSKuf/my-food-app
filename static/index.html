@@ -2,75 +2,257 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>FoodDash Pro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOOD DASH PRO | Premium Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --bg: #0b0f19; --card: #161b2c; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: white; margin: 0; text-align: center; }
-        
-        .header { padding: 20px; background: var(--card); border-bottom: 2px solid var(--primary); display: flex; justify-content: space-around; align-items: center; }
-        .container { max-width: 800px; margin: 50px auto; padding: 20px; }
-        
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .item-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #2d334a; cursor: pointer; transition: 0.3s; }
-        .item-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        
-        .footer { margin-top: 100px; padding: 50px; border-top: 1px solid #2d334a; }
-        .footer-divider { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin-bottom: 20px; }
-        .footer-text { font-size: 32px; font-weight: 800; background: linear-gradient(90deg, #ffffff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        :root {
+            --primary: #ff4757;
+            --secondary: #2f3542;
+            --accent: #ffa502;
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            background-image: radial-gradient(circle at 50% -20%, #1e293b, #0f172a);
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Шапка */
+        .header {
+            padding: 20px 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary), #ff6b81);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .balance-card {
+            background: var(--card);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Контейнер */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .welcome-text h1 { font-size: 42px; margin-bottom: 10px; }
+        .welcome-text p { color: #94a3b8; font-size: 18px; }
+
+        /* Сетка товаров */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(5px);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-icon { font-size: 60px; margin-bottom: 20px; display: block; }
+        .card-title { font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+        .card-price { color: var(--accent); font-size: 20px; font-weight: bold; margin-bottom: 20px; }
+
+        .btn-buy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .btn-buy:hover { background: #ff6b81; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
+
+        /* Секция заказов */
+        .orders-section {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .status-badge {
+            background: #2ed573;
+            color: black;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Уведомление */
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+
     <div class="header">
-        <div style="font-size: 24px; font-weight: 800;">FOOD DASH</div>
-        <div style="color: var(--primary)">Баланс: 5000 ₽</div>
+        <div class="logo">FOOD DASH PRO</div>
+        <div class="balance-card">Баланс: <span id="balance">5000</span> ₽</div>
     </div>
 
     <div class="container">
-        <div class="btn-grid">
-            <div class="item-card" onclick="buy('Пицца 🍕')"><h1>🍕</h1><p>Пицца</p></div>
-            <div class="item-card" onclick="buy('Бургер 🍔')"><h1>🍔</h1><p>Бургер</p></div>
-            <div class="item-card" onclick="buy('Суши 🍣')"><h1>🍣</h1><p>Суши</p></div>
+        <div class="welcome-text">
+            <h1>Выголодались, Кирилл?</h1>
+            <p>Лучшая еда из лучших ресторанов города</p>
         </div>
 
-        <h3>Последние заказы:</h3>
-        <div id="list"></div>
-        <div style="
-        
-    font-size: 80px; 
-    font-weight: 900; 
-    text-align: center; 
-    margin: 50px 0; 
-    color: #ff0055; 
-    text-transform: uppercase;
-    text-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
-    line-height: 1;
-    font-family: 'Montserrat', sans-serif;">
-    MAMA KIRILLA <br> SVINOTA
-</div>
+        <div class="grid">
+            <div class="card">
+                <span class="card-icon">🍕</span>
+                <div class="card-title">Пепперони Мафия</div>
+                <div class="card-price">599 ₽</div>
+                <button class="btn-buy" onclick="buy('Пицца 🍕', 599)">Заказать</button>
+            </div>
 
-        <div class="footer">
-            <div class="footer-divider"></div>
-            <div class="footer-text">GO-STUDY PREMIUM DELIVERY</div>
-            <p style="color: #555;">© 2026 Разработано специально для твоего проекта</p>
+            <div class="card">
+                <span class="card-icon">🍔</span>
+                <div class="card-title">Мега Бургер</div>
+                <div class="card-price">350 ₽</div>
+                <button class="btn-buy" onclick="buy('Бургер 🍔', 350)">Заказать</button>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🍣</span>
+                <div class="card-title">Сет "Сакура"</div>
+                <div class="card-price">1200 ₽</div>
+                <button class="btn-buy" onclick="buy('Суши 🍣', 1200)">Заказать</button>
+            </div>
+        </div>
+
+        <div class="orders-section">
+            <h3>🕒 История ваших заказов</h3>
+            <div id="list">
+                <p style="color: #64748b">Заказов пока нет...</p>
+            </div>
         </div>
     </div>
 
+    <div id="notification">Заказ оформлен! 🚀</div>
+
     <script>
-        async function buy(name) {
-            await fetch('/orders', {
+        let balance = 5000;
+
+        async function buy(item, price) {
+            if (balance < price) {
+                alert("Недостаточно средств!");
+                return;
+            }
+
+            const response = await fetch('/orders', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({item: name, quantity: 1})
+                body: JSON.stringify({item: item})
             });
-            load();
+
+            if (response.ok) {
+                balance -= price;
+                document.getElementById('balance').innerText = balance;
+                showNotification();
+                loadOrders();
+            }
         }
-        async function load() {
-            const r = await fetch('/orders');
-            const data = await r.json();
-            document.getElementById('list').innerHTML = data.map(o => `<p>✅ Заказ #${o.id}: ${o.item}</p>`).reverse().join('');
+
+        function showNotification() {
+            const el = document.getElementById('notification');
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
         }
-        load();
+
+        async function loadOrders() {
+            const response = await fetch('/orders');
+            const orders = await response.json();
+            const list = document.getElementById('list');
+            
+            if (orders.length > 0) {
+                list.innerHTML = orders.reverse().map(o => `
+                    <div class="order-item">
+                        <div>
+                            <strong>${o.item}</strong><br>
+                            <small style="color: #64748b">${new Date(o.created_at).toLocaleTimeString()}</small>
+                        </div>
+                        <div class="status-badge">Готовится</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Загружаем заказы при старте
+        loadOrders();
     </script>
 </body>
 </html>
