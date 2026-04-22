@@ -10,9 +10,10 @@
 <style>
 :root {
     --kfc-red: #e4002b;
-    --dark: #000;
+    --dark: #0a0a0a;
+    --card: #141414;
     --white: #fff;
-    --gray: #222;
+    --gray: #2a2a2a;
 }
 
 body {
@@ -27,17 +28,23 @@ body {
     top: 0;
     width: 100%;
     padding: 15px 20px;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.95);
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid var(--kfc-red);
+    align-items: center;
     z-index: 1000;
 }
 
 .balance-badge {
     background: var(--kfc-red);
     padding: 8px 15px;
+    border-radius: 8px;
     font-weight: 800;
+    transition: transform 0.3s;
+}
+
+.balance-badge.flash {
+    transform: scale(1.2);
 }
 
 .hero-banner {
@@ -48,80 +55,57 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 60px;
-}
-
-.hero-banner h1 {
-    font-family: 'Oswald';
-    font-size: 40px;
-    text-shadow: 3px 3px var(--kfc-red);
+    margin-top: 70px;
 }
 
 .tabs-container {
     display: flex;
     gap: 10px;
-    padding: 20px;
+    padding: 15px;
 }
 
 .tab-btn {
     flex: 1;
     padding: 12px;
     background: var(--gray);
-    color: white;
+    border-radius: 8px;
     border: none;
-    cursor: pointer;
+    color: white;
 }
 
-.tab-btn.active {
-    background: var(--kfc-red);
-}
+.tab-btn.active { background: var(--kfc-red); }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .food-card {
-    background: #111;
-    border-left: 6px solid var(--kfc-red);
+    background: var(--card);
+    border-radius: 12px;
     overflow: hidden;
-    transform: translateY(30px);
+    animation: fadeUp .5s ease forwards;
     opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
 }
-
-.food-card:nth-child(2){animation-delay:.1s}
-.food-card:nth-child(3){animation-delay:.2s}
-.food-card:nth-child(4){animation-delay:.3s}
-.food-card:nth-child(5){animation-delay:.4s}
-.food-card:nth-child(6){animation-delay:.5s}
 
 @keyframes fadeUp {
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.food-card:hover {
-    transform: scale(1.03);
+    to {opacity:1; transform: translateY(0);} 
+    from {opacity:0; transform: translateY(20px);} 
 }
 
 .food-img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
-    transition: .4s;
-}
-
-.food-card:hover .food-img {
-    transform: scale(1.1);
 }
 
 .food-info { padding: 15px; }
 
 .food-title {
     font-family: 'Oswald';
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .food-price {
@@ -134,17 +118,28 @@ body {
     padding: 12px;
     background: var(--kfc-red);
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: .3s;
-}
-
-.buy-btn:hover {
-    background: #ff1a4d;
-    transform: scale(1.05);
 }
 
 .menu-page { display: none; }
 .menu-page.active { display: block; }
+
+/* ORDERS */
+.orders {
+    padding: 15px;
+}
+
+.order-item {
+    background: #111;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.status { color: orange; }
+.status.done { color: #2ed573; }
 
 #notify {
     position: fixed;
@@ -154,7 +149,8 @@ body {
     opacity: 0;
     background: white;
     color: black;
-    padding: 15px 30px;
+    padding: 12px 25px;
+    border-radius: 10px;
     transition: .4s;
 }
 
@@ -168,7 +164,7 @@ body {
     text-align: center;
     padding: 20px;
     font-family: 'Oswald';
-    font-size: 30px;
+    font-size: 28px;
 }
 </style>
 </head>
@@ -177,11 +173,11 @@ body {
 
 <div class="header-top">
     <div>FOOD DASH PRO</div>
-    <div class="balance-badge">БАЛАНС: <span id="bal">5000</span>$</div>
+    <div class="balance-badge" id="balance">💰 <span id="bal">5000</span></div>
 </div>
 
 <div class="hero-banner">
-    <h1>Меню для Кирилла</h1>
+    <h1>Меню</h1>
 </div>
 
 <div class="tabs-container">
@@ -193,56 +189,20 @@ body {
 <div class="grid">
 
 <div class="food-card">
-<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=90" class="food-img">
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800" class="food-img">
 <div class="food-info">
-<div class="food-title">ПИЦЦА ПЕППЕРОНИ 🍕</div>
+<div class="food-title">ПИЦЦА 🍕</div>
 <div class="food-price">650 ₽</div>
 <button class="buy-btn" onclick="order('ПИЦЦА',650)">ВЗЯТЬ</button>
 </div>
 </div>
 
 <div class="food-card">
-<img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&q=90" class="food-img">
+<img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800" class="food-img">
 <div class="food-info">
 <div class="food-title">ШЕФБУРГЕР 🍔</div>
 <div class="food-price">450 ₽</div>
-<button class="buy-btn" onclick="order('ШЕФБУРГЕР',450)">ВЗЯТЬ</button>
-</div>
-</div>
-
-<div class="food-card">
-<img src="https://images.unsplash.com/photo-1541214113241-21578d2d9b62?w=600&q=90" class="food-img">
-<div class="food-info">
-<div class="food-title">ХОТ-ДОГ 🌭</div>
-<div class="food-price">190 ₽</div>
-<button class="buy-btn" onclick="order('ХОТ-ДОГ',190)">ВЗЯТЬ</button>
-</div>
-</div>
-
-<div class="food-card">
-<img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=90" class="food-img">
-<div class="food-info">
-<div class="food-title">КАРТОФЕЛЬ ФРИ 🍟</div>
-<div class="food-price">199 ₽</div>
-<button class="buy-btn" onclick="order('ФРИ',199)">ВЗЯТЬ</button>
-</div>
-</div>
-
-<div class="food-card">
-<img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=600&q=90" class="food-img">
-<div class="food-info">
-<div class="food-title">КРЫЛЬЯ 🍗</div>
-<div class="food-price">399 ₽</div>
-<button class="buy-btn" onclick="order('КРЫЛЬЯ',399)">ВЗЯТЬ</button>
-</div>
-</div>
-
-<div class="food-card">
-<img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=90" class="food-img">
-<div class="food-info">
-<div class="food-title">МОРОЖЕНОЕ 🍦</div>
-<div class="food-price">120 ₽</div>
-<button class="buy-btn" onclick="order('МОРОЖЕНОЕ',120)">ВЗЯТЬ</button>
+<button class="buy-btn" onclick="order('БУРГЕР',450)">ВЗЯТЬ</button>
 </div>
 </div>
 
@@ -253,7 +213,7 @@ body {
 <div class="grid">
 
 <div class="food-card">
-<img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=600&q=90" class="food-img">
+<img src="https://images.unsplash.com/photo-1605478524262-6e5b5d4c0c89?w=800" class="food-img">
 <div class="food-info">
 <div class="food-title">ПИВО 🍺</div>
 <div class="food-price">344 ₽</div>
@@ -262,7 +222,7 @@ body {
 </div>
 
 <div class="food-card">
-<img src="https://images.unsplash.com/photo-1510627498534-cf7e9002facc?w=600&q=90" class="food-img">
+<img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800" class="food-img">
 <div class="food-info">
 <div class="food-title">ВИНО 🍷</div>
 <div class="food-price">180 ₽</div>
@@ -272,6 +232,8 @@ body {
 
 </div>
 </div>
+
+<div class="orders" id="orders"></div>
 
 <footer class="footer-svinota">KIRILL SVINOTA</footer>
 <div id="notify">ЗАКАЗ ПРИНЯТ 🚀</div>
@@ -288,12 +250,30 @@ btn.classList.add('active');
 
 function order(name,price){
 if(money<price){alert("НЕТ ДЕНЕГ");return;}
+
 money-=price;
-document.getElementById('bal').innerText=money;
+let bal=document.getElementById('bal');
+let box=document.getElementById('balance');
+
+bal.innerText=money;
+box.classList.add('flash');
+setTimeout(()=>box.classList.remove('flash'),300);
 
 let n=document.getElementById('notify');
 n.classList.add('show');
 setTimeout(()=>n.classList.remove('show'),2000);
+
+// ORDERS
+let orders=document.getElementById('orders');
+let el=document.createElement('div');
+el.className='order-item';
+el.innerHTML=`${name} — <span class='status'>едет 🛵</span>`;
+orders.prepend(el);
+
+setTimeout(()=>{
+el.querySelector('.status').innerText='доставлено ✔';
+el.querySelector('.status').classList.add('done');
+},3000);
 }
 </script>
 
