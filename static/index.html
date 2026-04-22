@@ -40,22 +40,22 @@ body {
     padding: 8px 15px;
     border-radius: 8px;
     font-weight: 800;
-    transition: transform 0.3s;
-}
-
-.balance-badge.flash {
-    transform: scale(1.2);
 }
 
 .hero-banner {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), black),
-    url('https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&q=80');
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), black),
+    url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80');
     background-size: cover;
     height: 25vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 70px;
+}
+
+.hero-banner h1 {
+    font-family: 'Oswald';
+    font-size: 36px;
 }
 
 .tabs-container {
@@ -86,13 +86,6 @@ body {
     background: var(--card);
     border-radius: 12px;
     overflow: hidden;
-    animation: fadeUp .5s ease forwards;
-    opacity: 0;
-}
-
-@keyframes fadeUp {
-    to {opacity:1; transform: translateY(0);} 
-    from {opacity:0; transform: translateY(20px);} 
 }
 
 .food-img {
@@ -124,22 +117,6 @@ body {
 
 .menu-page { display: none; }
 .menu-page.active { display: block; }
-
-/* ORDERS */
-.orders {
-    padding: 15px;
-}
-
-.order-item {
-    background: #111;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    font-size: 14px;
-}
-
-.status { color: orange; }
-.status.done { color: #2ed573; }
 
 #notify {
     position: fixed;
@@ -173,11 +150,11 @@ body {
 
 <div class="header-top">
     <div>FOOD DASH PRO</div>
-    <div class="balance-badge" id="balance">💰 <span id="bal">5000</span></div>
+    <div class="balance-badge">💰 <span id="bal">5000</span></div>
 </div>
 
 <div class="hero-banner">
-    <h1>Меню</h1>
+    <h1>Проголодался Кирилл?</h1>
 </div>
 
 <div class="tabs-container">
@@ -185,6 +162,7 @@ body {
     <button class="tab-btn" onclick="openTab('drinks',this)">АЛКОГОЛЬ</button>
 </div>
 
+<!-- FOOD -->
 <div id="food" class="menu-page active">
 <div class="grid">
 
@@ -206,14 +184,24 @@ body {
 </div>
 </div>
 
+<div class="food-card">
+<img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800" class="food-img">
+<div class="food-info">
+<div class="food-title">МОРОЖЕНОЕ 🍦</div>
+<div class="food-price">120 ₽</div>
+<button class="buy-btn" onclick="order('МОРОЖЕНОЕ',120)">ВЗЯТЬ</button>
 </div>
 </div>
 
+</div>
+</div>
+
+<!-- DRINKS -->
 <div id="drinks" class="menu-page">
 <div class="grid">
 
 <div class="food-card">
-<img src="https://images.unsplash.com/photo-1605478524262-6e5b5d4c0c89?w=800" class="food-img">
+<img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?w=800" class="food-img">
 <div class="food-info">
 <div class="food-title">ПИВО 🍺</div>
 <div class="food-price">344 ₽</div>
@@ -233,8 +221,6 @@ body {
 </div>
 </div>
 
-<div class="orders" id="orders"></div>
-
 <footer class="footer-svinota">KIRILL SVINOTA</footer>
 <div id="notify">ЗАКАЗ ПРИНЯТ 🚀</div>
 
@@ -250,30 +236,12 @@ btn.classList.add('active');
 
 function order(name,price){
 if(money<price){alert("НЕТ ДЕНЕГ");return;}
-
 money-=price;
-let bal=document.getElementById('bal');
-let box=document.getElementById('balance');
-
-bal.innerText=money;
-box.classList.add('flash');
-setTimeout(()=>box.classList.remove('flash'),300);
+document.getElementById('bal').innerText=money;
 
 let n=document.getElementById('notify');
 n.classList.add('show');
 setTimeout(()=>n.classList.remove('show'),2000);
-
-// ORDERS
-let orders=document.getElementById('orders');
-let el=document.createElement('div');
-el.className='order-item';
-el.innerHTML=`${name} — <span class='status'>едет 🛵</span>`;
-orders.prepend(el);
-
-setTimeout(()=>{
-el.querySelector('.status').innerText='доставлено ✔';
-el.querySelector('.status').classList.add('done');
-},3000);
 }
 </script>
 
