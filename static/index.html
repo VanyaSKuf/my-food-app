@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>FoodDash Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00ff88; --bg: #0b0f19; --card: #161b2c; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: white; margin: 0; text-align: center; }
+        
+        .header { padding: 20px; background: var(--card); border-bottom: 2px solid var(--primary); display: flex; justify-content: space-around; align-items: center; }
+        .container { max-width: 800px; margin: 50px auto; padding: 20px; }
+        
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 40px; }
+        .item-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #2d334a; cursor: pointer; transition: 0.3s; }
+        .item-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        
+        .footer { margin-top: 100px; padding: 50px; border-top: 1px solid #2d334a; }
+        .footer-divider { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--primary), transparent); margin-bottom: 20px; }
+        .footer-text { font-size: 32px; font-weight: 800; background: linear-gradient(90deg, #ffffff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="font-size: 24px; font-weight: 800;">FOOD DASH</div>
+        <div style="color: var(--primary)">Баланс: 5000 ₽</div>
+    </div>
+
+    <div class="container">
+        <div class="btn-grid">
+            <div class="item-card" onclick="buy('Пицца 🍕')"><h1>🍕</h1><p>Пицца</p></div>
+            <div class="item-card" onclick="buy('Бургер 🍔')"><h1>🍔</h1><p>Бургер</p></div>
+            <div class="item-card" onclick="buy('Суши 🍣')"><h1>🍣</h1><p>Суши</p></div>
+        </div>
+
+        <h3>Последние заказы:</h3>
+        <div id="list"></div>
+        <div style="
+        
+    font-size: 80px; 
+    font-weight: 900; 
+    text-align: center; 
+    margin: 50px 0; 
+    color: #ff0055; 
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(255, 0, 85, 0.5);
+    line-height: 1;
+    font-family: 'Montserrat', sans-serif;">
+    MAMA KIRILLA <br> SVINOTA
+</div>
+
+        <div class="footer">
+            <div class="footer-divider"></div>
+            <div class="footer-text">GO-STUDY PREMIUM DELIVERY</div>
+            <p style="color: #555;">© 2026 Разработано специально для твоего проекта</p>
+        </div>
+    </div>
+
+    <script>
+        async function buy(name) {
+            await fetch('/orders', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({item: name, quantity: 1})
+            });
+            load();
+        }
+        async function load() {
+            const r = await fetch('/orders');
+            const data = await r.json();
+            document.getElementById('list').innerHTML = data.map(o => `<p>✅ Заказ #${o.id}: ${o.item}</p>`).reverse().join('');
+        }
+        load();
+    </script>
+</body>
+</html>
